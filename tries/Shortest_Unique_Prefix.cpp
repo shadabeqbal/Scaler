@@ -116,7 +116,7 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    vector<string> A = {"apple", "ball", "cat"};
+    vector<string> A = {"zebra", "dog", "duck", "dove"};
     TrieNode *root = createTrie(A);
     vector<string> ans = traversal(root, A);
 
