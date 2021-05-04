@@ -91,7 +91,9 @@ vector<string> traversal(TrieNode *root, vector<string> &A)
     string str = "";
     for (int i = 0; i < (int)A.size(); i++)
     {
-        for (int j = 0; i < (int)A[i].size(); j++)
+        temp = temp->m[A[i][0]];
+        str += A[i][0];
+        for (int j = 1; j <= (int)A[i].size(); j++)
         {
             if (temp->score == 1)
             {
@@ -101,8 +103,8 @@ vector<string> traversal(TrieNode *root, vector<string> &A)
             }
             else
             {
-                temp = temp->m[A[i][j]];
                 str += A[i][j];
+                temp = temp->m[A[i][j]];
             }
         }
         temp = root;
@@ -114,7 +116,7 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    vector<string> A = {"zebra", "dog", "duck", "dove"};
+    vector<string> A = {"apple", "ball", "cat"};
     TrieNode *root = createTrie(A);
     vector<string> ans = traversal(root, A);
 
