@@ -44,40 +44,39 @@ typedef vector<pll> vpl;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 
-struct node
+struct SegmentNode
 {
     int left_idx;
     int right_idx;
     int sum;
-    struct node *left;
-    struct node *right;
+    struct SegmentNode *left;
+    struct SegmentNode *right;
 };
-struct node *foo(struct node *root, vi &vec, int low, int high)
+struct SegmentNode *createSegmentTree(vi &vec, int low, int high)
 {
     if (low == high)
     {
-        node *p = new node();
+        SegmentNode *p = new SegmentNode();
         p->left_idx = low;
         p->right_idx = high;
         p->sum = vec[low];
         p->left=NULL;
         p->right=NULL;
-        cout<<p->sum;
         return p;
     }
-    node *x=new node();
+    SegmentNode *x=new SegmentNode();
     x->left_idx=low;
     x->right_idx=high;
     int mid = low + (high - low) / 2;
     
-    x->left = foo(x->left, vec, low, mid);
-    x->right = foo(x->right, vec, mid + 1, high);
+    x->left = createSegmentTree(vec, low, mid);
+    x->right = createSegmentTree(vec, mid + 1, high);
     x->sum = (x->left->sum) + (x->right->sum);
     return x;
 }
-void display(struct node *p)
+void display(struct SegmentNode *p)
 {
-    if (p->left_idx == p->right_idx)
+    if (p == NULL)
     {
         return;
     }
@@ -90,10 +89,9 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     vi vec = {1, 5, 8, 7, 6, 3, 2};
-    node *root = new node();
     int high = vec.size() - 1;
     int low = 0;
-    root=foo(root, vec, low, high);
+    SegmentNode *root=createSegmentTree(vec, low, high);
     display(root);
     return 0;
 }
