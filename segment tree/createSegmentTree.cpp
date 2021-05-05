@@ -60,15 +60,16 @@ struct SegmentNode *createSegmentTree(vi &vec, int low, int high)
         p->left_idx = low;
         p->right_idx = high;
         p->sum = vec[low];
-        p->left=NULL;
-        p->right=NULL;
+        p->left = NULL;
+        p->right = NULL;
         return p;
     }
-    SegmentNode *x=new SegmentNode();
-    x->left_idx=low;
-    x->right_idx=high;
+
+    SegmentNode *x = new SegmentNode();
+    x->left_idx = low;
+    x->right_idx = high;
     int mid = low + (high - low) / 2;
-    
+
     x->left = createSegmentTree(vec, low, mid);
     x->right = createSegmentTree(vec, mid + 1, high);
     x->sum = (x->left->sum) + (x->right->sum);
@@ -81,7 +82,7 @@ void display(struct SegmentNode *p)
         return;
     }
     display(p->left);
-    cout << p->sum<<"\n";
+    cout << p->sum << "\n";
     display(p->right);
 }
 
@@ -92,7 +93,7 @@ int main()
     vi vec = {1, 5, 8, 7, 6, 3, 2};
     int high = vec.size() - 1;
     int low = 0;
-    SegmentNode *root=createSegmentTree(vec, low, high);
+    SegmentNode *root = createSegmentTree(vec, low, high);
     display(root);
     return 0;
 }
