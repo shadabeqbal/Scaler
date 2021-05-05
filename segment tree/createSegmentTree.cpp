@@ -1,12 +1,12 @@
 /*  // //  
    // //        
    \\//       
-	\>>      
-	//\\    
+    \>>      
+    //\\    
    //  \\
 Author: Shadab Eqbal 
-Created on: "18-04-2021" 
-Name: Create Segment Tree
+Created on: "06-05-2021" 
+Name: 
 Link: 
 */
 
@@ -84,6 +84,7 @@ void display(struct SegmentNode *p)
     cout << p->sum<<"\n";
     display(p->right);
 }
+
 int main()
 {
     ios_base::sync_with_stdio(false);
