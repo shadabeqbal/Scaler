@@ -44,19 +44,11 @@ typedef vector<pll> vpl;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 
-int foo(int n)
-{
-    if (n == 1 || n == 0)
-        return n;
-    else
-        return foo(n - 1) + foo(n - 2);
-}
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    int n = 5;
-    cout << foo(n);
-
+    // Do it yourself
+    
     return 0;
 }
