@@ -122,10 +122,19 @@ void find_min(SegmentNode *root,vector<int> &A,int low,int high,int y,int z,vect
 
     }
 }
+void releaseNode(SegmentNode *root){
+    
+    if(!root)
+        return;
+    releaseNode(root->left);
+    releaseNode(root->right);
+
+    delete(root);
+}
 vector<int> solve(vector<int> &A, vector<vector<int> > &B) {
     SegmentNode *root=createSegmentTree(A,0,A.size()-1);
     vector<int> ans;
-    for(int i=0;i<B.size();i++){
+    for(int i=0;i<(int)B.size();i++){
         int x=B[i][0];
         int y=B[i][1];
         int z=B[i][2];
@@ -136,6 +145,7 @@ vector<int> solve(vector<int> &A, vector<vector<int> > &B) {
             find_min(root,A,0,A.size()-1,y-1,z-1,ans);
         }
     }
+    releaseNode(root);
 
     return ans;
 }
