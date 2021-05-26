@@ -5,7 +5,7 @@
     //\\    
    //  \\
 Author: Shadab Eqbal 
-Created on: "20-05-2021" 
+Created on: "26-05-2021" 
 Name: 
 Link: 
 */
@@ -48,31 +48,36 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    vi vec(32, 1);
-    //fstream fs;
-    //fs.open("prime.txt",fstream::out);
-    vec[0] = 0;
-    vec[1] = 0;
-    for (int i = 0; i < (int)vec.size(); i++)
+    vi vec = {20,20, 1, 1, 7, 7, 100, 100, 9,9,102,102,8};
+    int start = 0;
+    int end = vec.size() - 1;
+    int ans = 0;
+    while (start <= end)
     {
-        if (vec[i] == 0)
-            continue;
+        int mid = start + (end - start) / 2;
+        if (vec[mid] != vec[mid - 1] && vec[mid] != vec[mid + 1])
+        {
+            ans = mid;
+            break;
+        }
+        else if (mid % 2 == 0)
+        {
+            if (vec[mid] == vec[mid + 1])
+                start = mid + 2;
+
+            if (vec[mid] == vec[mid - 1])
+                end = mid - 2;
+        }
         else
         {
+            if (vec[mid] == vec[mid - 1])
+                start = mid + 1;
 
-            //fs<<i<<"\n";
-            cout << i << " ";
-            int x = 2, j = i;
-            while (j * x <= vec.size())
-            {
-                if (vec[j * x] != 0)
-                    vec[j * x] = 0;
-
-                x++;
-            }
+            if (vec[mid] == vec[mid + 1])
+                end = mid - 1;
         }
     }
 
-    //fs.close();
+    cout << ans;
     return 0;
 }
