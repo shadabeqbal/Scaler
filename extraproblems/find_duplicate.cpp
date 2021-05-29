@@ -5,7 +5,7 @@
     //\\    
    //  \\
 Author: Shadab Eqbal 
-Created on: "23-05-2021" 
+Created on: "30-05-2021" 
 Name: 
 Link: 
 */
@@ -48,25 +48,19 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    vi vec = {3, 1, 2, 4, 3};
-    int x = vec[0], y = vec[0];
-    while (1)
+    vi vec = {1, 3, 2, 4, 5, 2};
+    map<int, int> mp;
+
+    for (int i = 0; i < vec.size(); i++)
     {
-        x = vec[x];
-        y = vec[vec[y]];
-        if (x == y)
+        if (!mp[vec[i]])
+            mp[vec[i]]++;
+        else
+        {
+            cout << vec[i];
             break;
+        }
     }
-
-    int p1 = vec[0];
-    int p2 = x;
-    while (p1 != p2)
-    {
-        p1 = vec[p1];
-        p2 = vec[p2];
-    }
-
-    cout << p1;
 
     return 0;
 }
