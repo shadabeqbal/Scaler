@@ -48,7 +48,7 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    vi vec = {4,8,11,15,18,24};
+    vi vec = {1,2,3,4,5};
     int cows = 3;
     cows--;
     int current_cow_idx = 0;
@@ -64,7 +64,7 @@ int main()
 
     //cout<<low<<" "<<high<<" ";
     int ans =INT_MIN;
-    while(low < high){
+    while(low <= high){
         int best_distance = INT_MIN;
         int mid = low + (high-low)/2;
         for(int i=1;i<vec.size();i++){
