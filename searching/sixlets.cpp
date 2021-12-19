@@ -5,7 +5,7 @@
     //\\    
    //  \\
 Author: Shadab Eqbal 
-Created on: "11-08-2021" 
+Created on: "19-12-2021" 
 Name: 
 Link: 
 */
@@ -44,42 +44,23 @@ typedef vector<pll> vpl;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 
+vi arr = {400,500,300,800,100};
+int B = 3;
+int solve(int idx, int sum,int size){
+    if(size == B) return 1;
+    int ans=0; 
+    for(int i=idx;i<arr.size();i++){
+        if(sum+arr[i] > 1000) continue;
+
+        ans+=solve(i+1,sum+arr[i],size+1);
+    }
+
+    return ans; 
+}
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    vi vec = {1,8,11,3,5,16};
-    int min = 0, max = 0;
-    max = accumulate(vec.begin(), vec.end(), max);
-    int painters = 3; 
-    int tp = painters;
-    int ans = 0;
-    while(min < max){
-        int mid = ceil(min + (max - min)/2);
-
-        int sum = 0;
-        for(int i=0;i<vec.size();i++){
-            if(sum+vec[i] <= mid){
-                sum+=vec[i];
-            }else{
-                sum=0;
-                sum+=vec[i];
-                tp--;
-            }
-        }
-        tp--;
-        if(tp == 0){
-            ans = mid;
-            max = mid - 1;
-        }else{
-            min = mid + 1;
-        }
-
-        tp = painters;
-    }
-
-
-    cout<<ans<<"\n";
-
+    cout<<solve(0,0,0);
     return 0;
 }
