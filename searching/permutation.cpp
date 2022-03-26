@@ -64,6 +64,10 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     string str = "abc";
-    foo(str, 0);
+    int n;
+    cin>>n;
+    if(n>0)
+        cout<<str<<"\n";
+    //foo(str, 0);
     return 0;
 }

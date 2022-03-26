@@ -44,10 +44,23 @@ typedef vector<pll> vpl;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 
+void anagrams(string str,int idx){
+    if(str.length() == idx){
+        cout<<str<<"\n";
+        return;
+    }
+
+    for(int i=idx;i<str.length();i++){
+        swap(str[idx],str[i]);
+        anagrams(str,idx+1);
+        swap(str[i],str[idx]);
+    }
+
+}
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    
+    anagrams("",0);
     return 0;
 }
