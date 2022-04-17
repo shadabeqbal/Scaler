@@ -7,7 +7,7 @@
 Author: Shadab Eqbal 
 Created on: "17-04-2022" 
 Name: Graph Cycle Detection
-Link: 
+Link: https://www.geeksforgeeks.org/detect-cycle-undirected-graph/
 */
 
 #include <bits/stdc++.h>
@@ -44,61 +44,132 @@ typedef vector<pll> vpl;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 
-list<int> *adj;
-void graph_init(int V){
+class Graph
+{
+     
+    // No. of vertices
+    int V;  
+   
+    // Pointer to an array
+    // containing adjacency lists
+    list<int> *adj; 
+    bool isCyclicUtil(int v, bool visited[],
+                              int parent);
+public:
+   
+    // Constructor
+    Graph(int V);  
+   
+    // To add an edge to graph
+    void addEdge(int v, int w);
+   
+    // Returns true if there is a cycle
+    bool isCyclic(); 
+};
+ 
+Graph::Graph(int V)
+{
+    this->V = V;
     adj = new list<int>[V];
 }
-void graph_addEdge(int x,int y){
-    adj[x].push_back(y);
-    adj[y].push_back(x);
+ 
+void Graph::addEdge(int v, int w)
+{
+     
+    // Add w to v’s list.
+    adj[v].push_back(w);
+   
+    // Add v to w’s list.
+    adj[w].push_back(v);
 }
-bool graph_isCyclicUtil(int x,bool visited[],int p){
-    visited[x] = true;
-
+ 
+// A recursive function that
+// uses visited[] and parent to detect
+// cycle in subgraph reachable
+// from vertex v.
+bool Graph::isCyclicUtil(int v,
+                bool visited[], int parent)
+{
+     
+    // Mark the current node as visited
+    visited[v] = true;
+ 
+    // Recur for all the vertices
+    // adjacent to this vertex
     list<int>::iterator i;
-    for(i = adj[x].begin(); i != adj[x].end();++i){
-        if(!visited[*i]){
-            if(graph_isCyclicUtil(*i,visited,x))
-                return true;
-        }else if(*i != p) return true;
+    for (i = adj[v].begin(); i !=
+                       adj[v].end(); ++i)
+    {
+         
+        // If an adjacent vertex is not visited,
+        //then recur for that adjacent
+        if (!visited[*i])
+        {
+           if (isCyclicUtil(*i, visited, v))
+              return true;
+        }
+ 
+        // If an adjacent vertex is visited and
+        // is not parent of current vertex,
+        // then there exists a cycle in the graph.
+        else if (*i != parent)
+           return true;
     }
-
     return false;
 }
-bool graph_isCyclic(int V){
+ 
+// Returns true if the graph contains
+// a cycle, else false.
+bool Graph::isCyclic()
+{
+     
+    // Mark all the vertices as not
+    // visited and not part of recursion
+    // stack
     bool *visited = new bool[V];
-    for(int i=0;i<V;i++)
+    for (int i = 0; i < V; i++)
         visited[i] = false;
-
-    //DFS
-    for(int x=0;x<V;x++){
-        if(!visited[x])
-            if(graph_isCyclicUtil(x,visited,-1))
-                return true;
+ 
+    // Call the recursive helper
+    // function to detect cycle in different
+    // DFS trees
+    for (int u = 0; u < V; u++)
+    {
+       
+        // Don't recur for u if
+        // it is already visited
+        if (!visited[u])
+          if (isCyclicUtil(u, visited, -1))
+             return true;
     }
     return false;
 }
-
+ 
+// Driver program to test above functions
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int V = 5;
-    graph_init(V);
-    graph_addEdge(0,0);
-    graph_addEdge(0,1);
-    graph_addEdge(1,0);
-    graph_addEdge(1,3);
-    graph_addEdge(1,4);
-    graph_addEdge(2,1);
-    graph_addEdge(2,2);
-    graph_addEdge(2,3);
-    graph_addEdge(2,4);
-    graph_addEdge(3,2);
-    if(graph_isCyclic(V))
-        cout<<"Graph contain cycle.";
-    else
-        cout<<"Graph do not contain any cycle.";
-
+    Graph g1(5);
+    g1.addEdge(0, 0);
+    g1.addEdge(0, 1);
+    g1.addEdge(1, 0);
+    g1.addEdge(1, 3);
+    g1.addEdge(1, 4);
+    g1.addEdge(2, 1);
+    g1.addEdge(2, 2);
+    g1.addEdge(2, 3);
+    g1.addEdge(2, 4);
+    g1.addEdge(3, 2);
+    
+    g1.isCyclic()?
+       cout << "Graph contains cycle\n":
+       cout << "Graph doesn't contain cycle\n";
+ 
+    Graph g2(3);
+    g2.addEdge(0, 1);
+    g2.addEdge(1, 2);
+    g2.isCyclic()?
+       cout << "Graph contains cycle\n":
+       cout << "Graph doesn't contain cycle\n";
+ 
     return 0;
 }
